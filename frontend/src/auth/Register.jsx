@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { registerUser } from "../services/auth.js";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useSnackbar } from "../context/SnackbarContext.jsx";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 const Register = () => {
+  const { showSuccess, showError } = useSnackbar();
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
 
@@ -39,11 +41,12 @@ const Register = () => {
     try {
       const data = await registerUser(formData);
       console.log("Registration successful:", data);
+      showSuccess("Account created successfully! Please log in.");
       navigate("/login");
     } catch (err) {
-      setError(
-        err.response?.data?.message || err.message || "Failed to register"
-      );
+      const errMsg = err.response?.data?.message || err.message || "Failed to register";
+      setError(errMsg);
+      showError(errMsg);
     } finally {
       setLoading(false);
     }

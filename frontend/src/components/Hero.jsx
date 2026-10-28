@@ -14,12 +14,6 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-6 animate-fade-in-up">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-primary-light text-primary px-4 py-1.5 rounded-full text-sm font-medium">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              Simple project management for modern teams
-            </div>
-
             {/* Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-[1.1] tracking-tight">
               Plan projects.
@@ -40,8 +34,7 @@ const Hero = () => {
 
             {/* Description */}
             <p className="text-lg text-text-secondary max-w-lg leading-relaxed">
-              TaskFlow brings projects, tasks, team collaboration, and progress
-              tracking into one focused workspace.
+              TaskFlow brings projects, Kanban boards, and Gemini AI task decomposition into one focused workspace.
             </p>
 
             {/* CTA */}
@@ -90,9 +83,7 @@ const Hero = () => {
             {/* Trust */}
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1">
               <div className="flex items-center gap-2 text-sm text-text-muted">
-                <span className="w-5 h-5 rounded-full bg-success-light text-success flex items-center justify-center text-xs">
-                  ✓
-                </span>
+               
                 No credit card required
               </div>
 

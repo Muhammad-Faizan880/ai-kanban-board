@@ -7,6 +7,7 @@ import ProtectedLayout from "./layouts/ProtectedLayout";
 import DashboardLayout from "./components/dashboardComponents/DashboardLayout";
 import { ForgotPassword } from "./auth/ForgotPassword";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { SnackbarProvider } from "./context/SnackbarContext";
 import ResetPassword from "./auth/ResetPassword";
 import VerifyOtp from "./auth/VerifyOtp";
 import MyTasks from "./pages/MyTasks";
@@ -17,30 +18,32 @@ import Settings from "./pages/Settings";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify-otp" element={<VerifyOtp />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+      <SnackbarProvider>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-otp" element={<VerifyOtp />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
-        {/* Protected Routes */}
-        <Route element={<ProtectedLayout />}>
-          <Route element={<DashboardLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/myTasks" element={<MyTasks />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/:id" element={<ProjectDetail />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/profile" element={<Settings />} />
+          {/* Protected Routes */}
+          <Route element={<ProtectedLayout />}>
+            <Route element={<DashboardLayout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/myTasks" element={<MyTasks />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:id" element={<ProjectDetail />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/profile" element={<Settings />} />
+            </Route>
           </Route>
-        </Route>
 
-        {/* Catch-all unknown routes */}
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
-      </Routes>
+          {/* Catch-all unknown routes */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </SnackbarProvider>
     </BrowserRouter>
   );
 }

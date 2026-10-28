@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useSnackbar } from "../context/SnackbarContext.jsx";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import {
   MagnifyingGlassIcon,
@@ -84,6 +85,9 @@ export default function MyTasks() {
     if (query !== null) {
       setSearch(query);
     }
+    if (searchParams.get("create") === "true") {
+      setIsCreateModalOpen(true);
+    }
   }, [searchParams]);
 
   // Kanban Horizontal Board Ref for Wheel Navigation
@@ -93,8 +97,7 @@ export default function MyTasks() {
   const [draggedTask, setDraggedTask] = useState(null);
   const [dragOverColumnId, setDragOverColumnId] = useState(null);
 
-  // Notification Toast State
-  const [toast, setToast] = useState(null);
+  const { showSnackbar, showSuccess, showError } = useSnackbar();
 
   // Modal States
   const [isAiModalOpen, setIsAiModalOpen] = useState(false);
@@ -132,14 +135,8 @@ export default function MyTasks() {
     }
   };
 
-  const showToast = (message, type = "info") => {
-    setToast({ message, type });
-    setTimeout(() => {
-      setToast(null);
-    }, 3500);
-  };
-
-  // ---------------- Horizontal Wheel Scroll Handler ----------------
+  const showToast = (message, type = "info") => showSnackbar(message, type);
+// ---------------- Horizontal Wheel Scroll Handler ----------------
   const handleBoardWheel = (e) => {
     if (boardRef.current && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
       const cardList = e.target.closest(".cards-scroll-container");
@@ -371,27 +368,6 @@ export default function MyTasks() {
 
   return (
     <div className="flex-1 min-h-0 flex flex-col overflow-hidden bg-background">
-      {/* Toast Notification */}
-      {toast && (
-        <div
-          className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-xl border px-4 py-3 shadow-2xl backdrop-blur-md transition-all animate-fade-in-up ${
-            toast.type === "success"
-              ? "border-success/30 bg-surface text-text-primary"
-              : toast.type === "error"
-              ? "border-danger/30 bg-surface text-danger"
-              : "border-primary/30 bg-surface text-text-primary"
-          }`}
-        >
-          {toast.type === "success" ? (
-            <CheckCircleIcon className="h-5 w-5 text-success shrink-0" />
-          ) : toast.type === "error" ? (
-            <ExclamationCircleIcon className="h-5 w-5 text-danger shrink-0" />
-          ) : (
-            <InformationCircleIcon className="h-5 w-5 text-primary shrink-0" />
-          )}
-          <p className="text-sm font-semibold">{toast.message}</p>
-        </div>
-      )}
 
       {/* ----------------- FIXED TOP TOOLBAR (DOES NOT SCROLL) ----------------- */}
       <div className="shrink-0 border-b border-border bg-surface/70 px-6 py-4 backdrop-blur-sm">
@@ -400,10 +376,6 @@ export default function MyTasks() {
           <div className="flex items-center gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-2.5 py-0.5 text-[11px] font-semibold text-primary">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                  Kanban Board
-                </span>
                 <span className="text-xs text-text-muted">
                   • {tasks.length} total tasks
                 </span>

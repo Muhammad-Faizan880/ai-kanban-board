@@ -79,11 +79,11 @@ const Navbar = ({ onProfileClick, onMobileMenuToggle }) => {
           {/* User info */}
           <div className="hidden text-left sm:block">
 
-            <p className="max-w-32 truncate text-sm font-semibold text-text-primary">
+            <p className="max-w-52 md:max-w-64 truncate text-sm font-semibold text-text-primary">
               {user?.name || "User"}
             </p>
 
-            <p className="max-w-32 truncate text-xs text-text-muted">
+            <p className="max-w-52 md:max-w-64 truncate text-xs text-text-muted">
               @{user?.username || "username"}
             </p>
 

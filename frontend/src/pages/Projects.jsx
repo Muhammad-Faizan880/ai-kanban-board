@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "../context/SnackbarContext.jsx";
 import {
   FolderIcon,
   PlusIcon,
@@ -44,7 +45,7 @@ const Projects = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null);
+  const { showSuccess, showError } = useSnackbar();
 
   // New Project/Task Form State
   const [newTitle, setNewTitle] = useState("");
@@ -56,12 +57,8 @@ const Projects = () => {
   );
   const [subtasksInput, setSubtasksInput] = useState("");
 
-  const showToast = (msg) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
-  };
-
-  // 1. Fetch exact tasks from backend MongoDB
+  const showToast = (msg) => showSuccess(msg);
+// 1. Fetch exact tasks from backend MongoDB
   const loadWorkspaceTasks = async () => {
     try {
       setLoading(true);
@@ -209,21 +206,11 @@ const Projects = () => {
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-5 py-8 md:px-8 lg:px-10">
-      {/* Toast Alert */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 rounded-xl bg-text-primary px-4 py-2.5 text-xs font-semibold text-text-inverse shadow-lg transition-all animate-card-enter">
-          <span>{toastMessage}</span>
-        </div>
-      )}
 
       {/* Page Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-3 py-1 text-xs font-semibold text-primary">
-              <FolderIcon className="h-3.5 w-3.5" />
-              Live Workspace Data
-            </span>
             <span className="text-xs text-text-muted">
               {totalCount} Total Items in Database
             </span>

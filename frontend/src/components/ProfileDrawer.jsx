@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { XMarkIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { updateProfile } from "../services/auth";
 import { updateUser } from "../redux/slices/authSlice";
+import { useSnackbar } from "../context/SnackbarContext.jsx";
 
 const ProfileDrawer = ({ isOpen, onClose }) => {
+  const { showSuccess, showError } = useSnackbar();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
@@ -53,10 +55,11 @@ const ProfileDrawer = ({ isOpen, onClose }) => {
 
       dispatch(updateUser(data.user));
       setMessage("Profile updated successfully");
+      showSuccess("Profile updated successfully");
     } catch (error) {
-      setErrorMsg(
-        error.response?.data?.message || "Failed to update profile"
-      );
+      const errMsg = error.response?.data?.message || "Failed to update profile";
+      setErrorMsg(errMsg);
+      showError(errMsg);
     } finally {
       setLoading(false);
     }

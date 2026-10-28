@@ -52,9 +52,6 @@ const Benefits = () => {
               }
             `}
           >
-            <span className="inline-block px-3 py-1 mb-4 rounded-full bg-primary-light text-primary text-xs font-semibold">
-              Work smarter
-            </span>
 
             <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-5">
               Built to reduce the noise around your work

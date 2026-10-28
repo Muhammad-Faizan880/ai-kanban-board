@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import TrustStats from '../components/TrustStats';
 import Features from '../components/Features';
+import AIAssistantSpotlight from '../components/AIAssistantSpotlight';
 import HowItWorks from '../components/HowItWorks';
 import ProductShowcase from '../components/ProductShowcase';
 import Benefits from '../components/Benefits';
@@ -22,6 +23,7 @@ const Home = () => {
         <Hero />
         <TrustStats />
         <Features />
+        <AIAssistantSpotlight />
         <HowItWorks />
         <ProductShowcase />
         <Benefits />

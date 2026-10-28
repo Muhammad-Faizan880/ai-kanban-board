@@ -15,8 +15,10 @@ import { updateProfile } from "../services/auth";
 import { updateUser, logout } from "../redux/slices/authSlice";
 import { togglePreference } from "../redux/slices/preferencesSlice";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "../context/SnackbarContext.jsx";
 
 const Settings = () => {
+  const { showSuccess, showError } = useSnackbar();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -27,14 +29,9 @@ const Settings = () => {
   const [email, setEmail] = useState(user?.email || "");
 
   const [loading, setLoading] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null);
 
-  const showToast = (msg) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
-  };
-
-  const handleUpdateProfile = async (e) => {
+  const showToast = (msg) => showSuccess(msg);
+const handleUpdateProfile = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
@@ -64,20 +61,10 @@ const Settings = () => {
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-5 py-8 md:px-8 lg:px-10">
-      {/* Toast Alert */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 rounded-xl bg-text-primary px-4 py-2.5 text-xs font-semibold text-text-inverse shadow-lg transition-all animate-card-enter">
-          <span>{toastMessage}</span>
-        </div>
-      )}
 
       {/* Header */}
       <div>
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-3 py-1 text-xs font-semibold text-primary">
-            <Cog6ToothIcon className="h-3.5 w-3.5" />
-            Account & Workspace
-          </span>
         </div>
         <h1 className="mt-2 text-2xl font-bold tracking-tight text-text-primary md:text-3xl">
           Settings & Preferences

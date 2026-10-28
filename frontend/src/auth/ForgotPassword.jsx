@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { forgotPassword } from "../services/auth.js";
+import { useSnackbar } from "../context/SnackbarContext.jsx";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export const ForgotPassword = () => {
+  const { showSuccess, showError } = useSnackbar();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -21,7 +23,9 @@ const navigate = useNavigate();
     try {
       const data = await forgotPassword(email);
 console.log("data>>>", data);
-      setMessage(data.message);
+      const msg = data.message || "Reset OTP sent to your email";
+      setMessage(msg);
+      showSuccess(msg);
       navigate("/verify-otp",{
   state: { email }
 });

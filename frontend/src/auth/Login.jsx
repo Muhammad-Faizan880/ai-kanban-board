@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../services/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/authSlice";
+import { useSnackbar } from "../context/SnackbarContext.jsx";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 const Login = () => {
+  const { showSuccess, showError } = useSnackbar();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -41,9 +43,12 @@ const Login = () => {
         })
       );
 
+      showSuccess("Welcome back, " + (data.user?.name || "User") + "!");
       navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || err.message || "Failed to login");
+      const errMsg = err.response?.data?.message || err.message || "Failed to login";
+      setError(errMsg);
+      showError(errMsg);
     } finally {
       setLoading(false);
     }

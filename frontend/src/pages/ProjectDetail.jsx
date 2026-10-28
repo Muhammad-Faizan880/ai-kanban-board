@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useSnackbar } from "../context/SnackbarContext.jsx";
 import {
   ArrowLeftIcon,
   CheckCircleIcon,
@@ -44,15 +45,11 @@ const ProjectDetail = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [newSubtaskTitle, setNewSubtaskTitle] = useState("");
-  const [toastMessage, setToastMessage] = useState(null);
+  const { showSuccess, showError } = useSnackbar();
   const [taskFilter, setTaskFilter] = useState("ALL");
 
-  const showToast = (msg) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
-  };
-
-  // Load single task and all workspace tasks
+  const showToast = (msg) => showSuccess(msg);
+// Load single task and all workspace tasks
   useEffect(() => {
     const loadDetails = async () => {
       setLoading(true);
@@ -250,12 +247,6 @@ const ProjectDetail = () => {
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto px-5 py-8 md:px-8 lg:px-10">
-      {/* Toast */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 rounded-xl bg-text-primary px-4 py-2.5 text-xs font-semibold text-text-inverse shadow-lg transition-all animate-card-enter">
-          <span>{toastMessage}</span>
-        </div>
-      )}
 
       {/* Top Navigation Bar */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-6">

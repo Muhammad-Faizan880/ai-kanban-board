@@ -35,9 +35,7 @@ const HowItWorks = () => {
           {steps.map((step, index) => (
             <div key={step.number} className="relative">
               <div className="bg-surface rounded-xl p-8 text-center border border-border relative z-10 hover:shadow-lg transition-shadow">
-                <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-primary">{step.number}</span>
-                </div>
+                
                 <h3 className="text-xl font-semibold text-text-primary mb-2">{step.title}</h3>
                 <p className="text-text-secondary text-sm leading-relaxed">{step.description}</p>
               </div>

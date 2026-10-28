@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { resetPassword } from "../services/auth.js";
+import { useSnackbar } from "../context/SnackbarContext.jsx";
 
 const ResetPassword = () => {
+  const { showSuccess, showError } = useSnackbar();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -31,7 +33,9 @@ const ResetPassword = () => {
 
       const data = await resetPassword(email, password);
 
-      setMessage(data.message);
+      const msg = data.message || "Password reset successfully! Redirecting to login...";
+      setMessage(msg);
+      showSuccess(msg);
 
       setTimeout(() => {
         navigate("/login");

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { verifyOtp, resendOtp } from "../services/auth.js";
+import { useSnackbar } from "../context/SnackbarContext.jsx";
 
 const VerifyOtp = () => {
   const navigate = useNavigate();
@@ -21,48 +22,56 @@ const VerifyOtp = () => {
   // Full joined OTP string
   const fullOtp = otpValues.join("");
 
-  // 1. Handle Single Digit Input
-  const handleChange = (e, index) => {
-    const val = e.target.value.replace(/\D/g, "");
+    const { showSuccess, showError } = useSnackbar();
 
-    // If empty (e.g. user selected and hit backspace or clear)
-    if (!val) {
+  // 1. Handle Single Digit or Multi-digit Paste in input
+  const handleChange = (e, index) => {
+    const rawVal = e.target.value.replace(/\D/g, "");
+
+    if (!rawVal) {
       const nextOtp = [...otpValues];
       nextOtp[index] = "";
       setOtpValues(nextOtp);
       return;
     }
 
-    // Take the last character typed in case multiple were entered
-    const char = val.slice(-1);
+    if (rawVal.length > 1) {
+      const digits = rawVal.slice(0, 6).split("");
+      const nextOtp = [...otpValues];
+      digits.forEach((char, i) => {
+        if (i < 6) nextOtp[i] = char;
+      });
+      setOtpValues(nextOtp);
+      const focusTarget = Math.min(digits.length, 5);
+      inputRefs.current[focusTarget]?.focus();
+      return;
+    }
+
     const nextOtp = [...otpValues];
-    nextOtp[index] = char;
+    nextOtp[index] = rawVal;
     setOtpValues(nextOtp);
 
-    // Auto-focus next input box
     if (index < 5 && inputRefs.current[index + 1]) {
       inputRefs.current[index + 1].focus();
     }
   };
 
-  // 2. Handle Backspace & Arrow Key Navigation
+  // 2. Handle Backspace & Arrow Navigation
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace") {
       e.preventDefault();
-
       const nextOtp = [...otpValues];
 
-      // If current box has a value, clear it and stay or move
       if (otpValues[index]) {
         nextOtp[index] = "";
         setOtpValues(nextOtp);
+        if (index > 0) {
+          inputRefs.current[index - 1]?.focus();
+        }
       } else if (index > 0) {
-        // If current box is already empty, move to previous box and clear it
         nextOtp[index - 1] = "";
         setOtpValues(nextOtp);
-        if (inputRefs.current[index - 1]) {
-          inputRefs.current[index - 1].focus();
-        }
+        inputRefs.current[index - 1]?.focus();
       }
     } else if (e.key === "ArrowLeft" && index > 0) {
       e.preventDefault();
@@ -73,22 +82,23 @@ const VerifyOtp = () => {
     }
   };
 
-  // 3. Handle Full Paste Event (e.g. copying 6-digit OTP from terminal/email)
+  // 3. Handle Full Clipboard Paste
   const handlePaste = (e) => {
     e.preventDefault();
-    const pastedData = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
-
+    const clip = e.clipboardData || window.clipboardData;
+    if (!clip) return;
+    const pastedData = clip.getData("text").replace(/\D/g, "").slice(0, 6);
     if (!pastedData) return;
 
-    const nextOtp = [...otpValues];
-    for (let i = 0; i < 6; i++) {
-      nextOtp[i] = pastedData[i] || "";
-    }
+    const digits = pastedData.split("");
+    const nextOtp = ["", "", "", "", "", ""];
+    digits.forEach((char, i) => {
+      if (i < 6) nextOtp[i] = char;
+    });
     setOtpValues(nextOtp);
 
-    // Focus the next empty box or the last box
-    const focusIndex = Math.min(pastedData.length, 5);
-    inputRefs.current[focusIndex]?.focus();
+    const focusTarget = Math.min(digits.length, 5);
+    inputRefs.current[focusTarget]?.focus();
   };
 
   // 4. Submit Verification
@@ -98,7 +108,9 @@ const VerifyOtp = () => {
     setError("");
 
     if (fullOtp.length !== 6) {
-      setError("Please enter a complete 6-digit OTP");
+      const msg = "Please enter a complete 6-digit OTP";
+      setError(msg);
+      showError(msg);
       return;
     }
 
@@ -106,15 +118,18 @@ const VerifyOtp = () => {
 
     try {
       const data = await verifyOtp(email, fullOtp);
-      setMessage(data.message || "OTP verified successfully");
+      const msg = data.message || "OTP verified successfully";
+      setMessage(msg);
+      showSuccess(msg);
 
       navigate("/reset-password", {
         state: { email },
       });
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Invalid or expired OTP. Please try again."
-      );
+      const errMsg =
+        err.response?.data?.message || "Invalid or expired OTP. Please try again.";
+      setError(errMsg);
+      showError(errMsg);
     } finally {
       setLoading(false);
     }
@@ -128,11 +143,15 @@ const VerifyOtp = () => {
       setError("");
 
       const data = await resendOtp(email);
-      setMessage(data.message || "A new OTP has been generated");
+      const msg = data.message || "A new OTP has been sent to your email";
+      setMessage(msg);
+      showSuccess(msg);
       setOtpValues(["", "", "", "", "", ""]);
       inputRefs.current[0]?.focus();
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to resend OTP");
+      const errMsg = err.response?.data?.message || "Failed to resend OTP";
+      setError(errMsg);
+      showError(errMsg);
     } finally {
       setResending(false);
     }
@@ -145,7 +164,7 @@ const VerifyOtp = () => {
         <div className="mb-4">
           <button
             type="button"
-            onClick={() => navigate("/forgot-password")}
+            onClick={() => navigate(-1)}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-text-muted hover:text-primary transition"
           >
             <ArrowLeftIcon className="h-3.5 w-3.5" />
@@ -183,7 +202,8 @@ const VerifyOtp = () => {
                   type="text"
                   inputMode="numeric"
                   autoComplete="one-time-code"
-                  maxLength={1}
+                  maxLength={6}
+                  onFocus={(e) => e.target.select()}
                   value={val}
                   onChange={(e) => handleChange(e, index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
