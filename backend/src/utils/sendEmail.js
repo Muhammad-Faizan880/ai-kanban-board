@@ -19,12 +19,12 @@ export const sendEmail = async ({ to, subject, html }) => {
       html,
     });
 
-    console.log("✅ Email delivered successfully:", info.messageId);
+    console.log(" Email delivered successfully:", info.messageId);
     return { success: true, messageId: info.messageId };
   } catch (error) {
     console.warn("==================================================");
-    console.warn("⚠️ [SMTP NOTICE] Google Gmail rejected credentials:", error.message);
-    console.log("💡 [DEV SMART FALLBACK] Email failed, but active OTP was saved in DB and printed above for testing.");
+    console.warn(" [SMTP NOTICE] Google Gmail rejected credentials:", error.message);
+    console.log(" [DEV SMART FALLBACK] Email failed, but active OTP was saved in DB and printed above for testing.");
     console.warn("==================================================");
     return { success: false, error: error.message };
   }
