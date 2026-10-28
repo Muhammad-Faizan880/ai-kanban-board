@@ -87,7 +87,7 @@ const Settings = () => {
         </p>
       </div>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-3">
+      <div className="mt-8 grid gap-4 lg:grid-cols-3">
         {/* Left 2 Cols: Profile & Preferences */}
         <div className="space-y-6 lg:col-span-2">
           {/* Profile Details Form */}

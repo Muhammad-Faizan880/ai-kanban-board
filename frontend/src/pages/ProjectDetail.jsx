@@ -304,7 +304,7 @@ const ProjectDetail = () => {
       </div>
 
       {/* 2-Column Layout: Details on Left, All Tasks on Right */}
-      <div className="mt-8 grid gap-8 lg:grid-cols-3">
+      <div className="mt-8 grid gap-4 lg:grid-cols-3">
         {/* Left 2 Cols: Main Task Overview & Subtasks */}
         <div className="space-y-6 lg:col-span-2">
           {/* Main Card */}

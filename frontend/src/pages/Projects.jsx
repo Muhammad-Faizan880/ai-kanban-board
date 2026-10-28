@@ -360,7 +360,7 @@ const Projects = () => {
           <p className="text-sm">Loading live workspace tasks...</p>
         </div>
       ) : (
-        <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {filteredTasks.map((task) => {
             const subtasks = task.subtasks || [];
             const subtasksDone = subtasks.filter((s) => s.completed).length;

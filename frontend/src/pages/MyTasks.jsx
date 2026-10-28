@@ -493,7 +493,7 @@ export default function MyTasks() {
         onWheel={handleBoardWheel}
         className="flex-1 min-h-0 w-full overflow-x-auto overflow-y-hidden p-6 kanban-scrollbar select-none"
       >
-        <div className="flex gap-6 items-stretch h-full min-w-max pr-6">
+        <div className="flex gap-4 items-stretch h-full min-w-max pr-6">
           {COLUMN_CONFIG.map((col) => {
             const columnTasks = filteredTasks.filter((t) => t.status === col.id);
             const isDragOver = dragOverColumnId === col.id;

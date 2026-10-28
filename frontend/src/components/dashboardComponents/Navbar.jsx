@@ -4,8 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
-  BellIcon,
-  MagnifyingGlassIcon,
+  
   ChevronDownIcon,
   ArrowRightOnRectangleIcon,
   Bars3Icon,
@@ -18,15 +17,8 @@ const Navbar = ({ onProfileClick, onMobileMenuToggle }) => {
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
-  const { taskReminders } = useSelector((state) => state.preferences || { taskReminders: true });
-  const [navSearch, setNavSearch] = useState("");
-  const [showNotifications, setShowNotifications] = useState(false);
 
-  const handleSearchKeyDown = (e) => {
-    if (e.key === "Enter" && navSearch.trim()) {
-      navigate(`/myTasks?search=${encodeURIComponent(navSearch.trim())}`);
-    }
-  };
+ 
 
   const handleLogout = () => {
     dispatch(logout());
@@ -65,49 +57,12 @@ const Navbar = ({ onProfileClick, onMobileMenuToggle }) => {
 
         </div>
 
-        {/* Search */}
-        <div className="hidden max-w-md flex-1 md:flex">
-
-          <div className="relative w-full">
-
-            <MagnifyingGlassIcon
-              className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted"
-            />
-
-            <input
-              type="text"
-              value={navSearch}
-              onChange={(e) => setNavSearch(e.target.value)}
-              onKeyDown={handleSearchKeyDown}
-              placeholder="Search tasks (press Enter)..."
-              className="w-full rounded-lg border border-border bg-surface-muted py-2.5 pl-10 pr-4 text-sm text-text-primary outline-none transition placeholder:text-text-muted focus:border-border-focus focus:bg-surface"
-            />
-
-          </div>
-
-        </div>
+      
 
       </div>
 
       {/* ================= RIGHT ================= */}
       <div className="flex items-center gap-2 sm:gap-3">
-
-        {/* Notification */}
-        <button
-          type="button"
-          className="relative flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
-          title="Notifications"
-        >
-          <BellIcon className="h-5 w-5" />
-
-          {/* Notification dot */}
-          {taskReminders && (
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-danger" />
-          )}
-        </button>
-
-        {/* Divider */}
-        <div className="mx-1 h-7 w-px bg-border" />
 
         {/* Profile */}
         <button

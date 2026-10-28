@@ -120,7 +120,9 @@ export const forgotPassword = async (req, res) => {
 
     await user.save();
 
-    console.log("RESET OTP:", otp);
+    console.log("==========================================");
+    console.log("🔑 PASSWORD RESET OTP: [", otp, "]");
+    console.log("==========================================");
     console.log("OTP EXPIRY:", user.resetPasswordOtpExpire);
 
     // Send OTP email
