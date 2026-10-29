@@ -83,9 +83,9 @@ button {
 @utility bg-gradient-primary {
   background:
     radial-gradient(
-      circle at 50% 0%,
-      var(--color-primary-light) -50%,
-      rgb(255 255 255 / 0.25) 25%,
+      circle at 10% 0%,
+      var(--color-primary-light) -10%,
+      rgb(255 255 255 / 0.25) 15%,
       transparent 50%
     ),
     radial-gradient(

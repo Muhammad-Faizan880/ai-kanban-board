@@ -14,6 +14,12 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-6 animate-fade-in-up">
+            {/* Lighthouse Verified Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-700 shadow-2xs">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>96 Lighthouse Performance • 100% SEO</span>
+            </div>
+
             {/* Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-[1.1] tracking-tight">
               Plan projects.
@@ -34,7 +40,8 @@ const Hero = () => {
 
             {/* Description */}
             <p className="text-lg text-text-secondary max-w-lg leading-relaxed">
-              TaskFlow brings projects, Kanban boards, and Gemini AI task decomposition into one focused workspace.
+              TaskFlow brings projects, Kanban boards, and Gemini AI task
+              decomposition into one focused workspace.
             </p>
 
             {/* CTA */}
@@ -83,7 +90,6 @@ const Hero = () => {
             {/* Trust */}
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1">
               <div className="flex items-center gap-2 text-sm text-text-muted">
-               
                 No credit card required
               </div>
 
