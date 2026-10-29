@@ -48,7 +48,7 @@ const RecentTasks = ({ tasks = [], onViewAll }) => {
     <div className="rounded-xl border border-border bg-surface xl:col-span-2">
 
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-border px-5 py-4">
+      <div className="flex items-center justify-between border-b border-border px-4 sm:px-5 py-3 sm:py-4">
 
         <div>
           <h2 className="font-semibold">
@@ -83,7 +83,7 @@ const RecentTasks = ({ tasks = [], onViewAll }) => {
               <div
                 key={task._id || task.id}
                 onClick={() => navigate(`/projects/${task._id || task.id}`)}
-                className="flex cursor-pointer flex-col gap-3 px-5 py-4 transition hover:bg-surface-muted sm:flex-row sm:items-center sm:justify-between group"
+                className="flex cursor-pointer flex-col gap-3 px-4 sm:px-5 py-3 sm:py-4 transition hover:bg-surface-muted sm:flex-row sm:items-center sm:justify-between group"
               >
 
                 {/* Task Info */}

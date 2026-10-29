@@ -8,12 +8,12 @@ const DashboardHeader = ({ onCreateTask }) => {
   const firstName = user?.name?.split(" ")[0] || "User";
 
   return (
-    <section className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-center">
+    <section className="mb-6 sm:mb-8 flex flex-col justify-between gap-4 sm:gap-5 md:flex-row md:items-center">
 
       {/* Welcome */}
       <div>
 
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
           Welcome back, {firstName}
         </h1>
 
@@ -26,7 +26,7 @@ const DashboardHeader = ({ onCreateTask }) => {
       <button
         type="button"
         onClick={onCreateTask}
-        className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-text-inverse shadow-sm transition hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-xs sm:text-sm font-semibold text-text-inverse shadow-sm transition hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 w-full sm:w-auto"
       >
         <PlusIcon className="h-5 w-5" />
 

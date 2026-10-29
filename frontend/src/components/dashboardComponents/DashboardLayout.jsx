@@ -13,7 +13,7 @@ const DashboardLayout = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-background text-text-primary flex">
+    <div className="h-screen w-full max-w-full overflow-hidden bg-background text-text-primary flex">
       {/* Desktop Persistent Left Sidebar */}
       <Sidebar
         user={user}

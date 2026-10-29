@@ -60,7 +60,7 @@ const handleUpdateProfile = async (e) => {
   };
 
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto px-5 py-8 md:px-8 lg:px-10">
+    <div className="flex-1 min-h-0 overflow-y-auto px-3.5 py-4 sm:px-6 sm:py-6 md:px-8 lg:px-10">
 
       {/* Header */}
       <div>
@@ -78,7 +78,7 @@ const handleUpdateProfile = async (e) => {
         {/* Left 2 Cols: Profile & Preferences */}
         <div className="space-y-6 lg:col-span-2">
           {/* Profile Details Form */}
-          <div className="rounded-2xl border border-border bg-surface p-6 shadow-xs">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6 shadow-xs">
             <div className="flex items-center gap-3 border-b border-border pb-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-light text-primary">
                 <UserCircleIcon className="h-6 w-6" />
@@ -148,7 +148,7 @@ const handleUpdateProfile = async (e) => {
           </div>
 
           {/* Notifications & AI Preferences (Real-time reactive) */}
-          <div className="rounded-2xl border border-border bg-surface p-6 shadow-xs">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6 shadow-xs">
             <div className="flex items-center gap-3 border-b border-border pb-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-info-light text-info">
                 <BellIcon className="h-6 w-6" />
@@ -229,7 +229,7 @@ const handleUpdateProfile = async (e) => {
         {/* Right Col: Theme & Security Overview */}
         <div className="space-y-6">
           {/* Design System Preview */}
-          <div className="rounded-2xl border border-border bg-surface p-6 shadow-xs">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6 shadow-xs">
             <div className="flex items-center gap-2.5">
               <PaintBrushIcon className="h-5 w-5 text-primary" />
               <h3 className="text-sm font-bold text-text-primary">Active Design System</h3>
@@ -251,7 +251,7 @@ const handleUpdateProfile = async (e) => {
           </div>
 
           {/* Account Security */}
-          <div className="rounded-2xl border border-border bg-surface p-6 shadow-xs">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6 shadow-xs">
             <div className="flex items-center gap-2.5">
               <ShieldCheckIcon className="h-5 w-5 text-success" />
               <h3 className="text-sm font-bold text-text-primary">Session Security</h3>

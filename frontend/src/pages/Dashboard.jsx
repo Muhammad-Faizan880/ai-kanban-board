@@ -135,12 +135,12 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto px-5 py-8 md:px-8 lg:px-10">
+    <div className="flex-1 min-h-0 overflow-y-auto px-3.5 py-4 sm:px-6 sm:py-6 md:px-8 lg:px-10">
       <DashboardHeader onCreateTask={() => setIsCreateModalOpen(true)} />
 
       <StatsCards stats={dynamicStats} />
 
-      <div className="mt-8 grid gap-4 xl:grid-cols-3">
+      <div className="mt-6 sm:mt-8 grid gap-4 xl:grid-cols-3">
         <RecentTasks tasks={formattedRecentTasks} onViewAll={handleGoToTasks} />
 
         <QuickActions

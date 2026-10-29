@@ -41,7 +41,7 @@ const QuickActions = ({
     <div className="rounded-xl border border-border bg-surface">
 
       {/* Header */}
-      <div className="border-b border-border px-5 py-4">
+      <div className="border-b border-border px-4 sm:px-5 py-3 sm:py-4">
         <h2 className="font-semibold">
           Quick Actions
         </h2>
@@ -52,7 +52,7 @@ const QuickActions = ({
       </div>
 
       {/* Actions */}
-      <div className="space-y-2 p-4">
+      <div className="space-y-2 p-3 sm:p-4">
 
         {actions.map((action) => {
           const Icon = action.icon;

@@ -46,31 +46,31 @@ const StatsCards = ({ stats = [] }) => {
   const cards = stats.length ? stats : defaultStats;
 
   return (
-    <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <section className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4 sm:gap-4">
       {cards.map((stat) => {
         const Icon = stat.icon;
 
         return (
           <div
             key={stat.title}
-            className="rounded-xl border border-border bg-surface p-5 transition hover:-translate-y-0.5 hover:shadow-md"
+            className="rounded-xl border border-border bg-surface p-3.5 sm:p-5 transition hover:-translate-y-0.5 hover:shadow-md"
           >
             <div className="flex items-start justify-between">
 
               <div>
-                <p className="text-sm font-medium text-text-secondary">
+                <p className="text-xs sm:text-sm font-medium text-text-secondary">
                   {stat.title}
                 </p>
 
-                <p className="mt-2 text-3xl font-bold tracking-tight text-text-primary">
+                <p className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-text-primary">
                   {stat.value}
                 </p>
               </div>
 
               <div
-                className={`flex h-11 w-11 items-center justify-center rounded-xl ${stat.iconBg} ${stat.iconColor}`}
+                className={`flex h-9 w-9 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl ${stat.iconBg} ${stat.iconColor}`}
               >
-                <Icon className="h-5 w-5" />
+                <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
 
             </div>

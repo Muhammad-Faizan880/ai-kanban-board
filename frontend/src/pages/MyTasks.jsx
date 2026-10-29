@@ -370,8 +370,8 @@ export default function MyTasks() {
     <div className="flex-1 min-h-0 flex flex-col overflow-hidden bg-background">
 
       {/* ----------------- FIXED TOP TOOLBAR (DOES NOT SCROLL) ----------------- */}
-      <div className="shrink-0 border-b border-border bg-surface/70 px-6 py-4 backdrop-blur-sm">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div className="shrink-0 border-b border-border bg-surface/70 px-3.5 sm:px-6 py-3 sm:py-4 backdrop-blur-sm">
+        <div className="flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-center lg:justify-between">
           {/* Title & Board Stats */}
           <div className="flex items-center gap-4">
             <div>
@@ -380,16 +380,16 @@ export default function MyTasks() {
                   • {tasks.length} total tasks
                 </span>
               </div>
-              <h1 className="text-2xl font-bold tracking-tight text-text-primary mt-0.5">
+              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-text-primary mt-0.5">
                 My Tasks
               </h1>
             </div>
           </div>
 
           {/* Action Toolbar */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             {/* Search Box */}
-            <div className="relative w-48 sm:w-60">
+            <div className="relative flex-1 min-w-[130px] sm:flex-initial sm:w-60">
               <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
               <input
                 type="text"
@@ -463,9 +463,9 @@ export default function MyTasks() {
       <div
         ref={boardRef}
         onWheel={handleBoardWheel}
-        className="flex-1 min-h-0 w-full overflow-x-auto overflow-y-hidden p-6 kanban-scrollbar select-none"
+        className="flex-1 min-h-0 w-full overflow-x-auto overflow-y-hidden p-3.5 sm:p-5 md:p-6 kanban-scrollbar select-none"
       >
-        <div className="flex gap-4 items-stretch h-full min-w-max pr-6">
+        <div className="flex gap-3 sm:gap-4 items-stretch h-full min-w-max pr-3.5 sm:pr-6">
           {COLUMN_CONFIG.map((col) => {
             const columnTasks = filteredTasks.filter((t) => t.status === col.id);
             const isDragOver = dragOverColumnId === col.id;
@@ -477,14 +477,14 @@ export default function MyTasks() {
                 onDragOver={(e) => handleDragOver(e, col.id)}
                 onDragLeave={(e) => handleDragLeave(e, col.id)}
                 onDrop={(e) => handleDrop(e, col.id)}
-                className={`w-[340px] flex-shrink-0 flex flex-col h-full max-h-full rounded-2xl border transition-all duration-300 ease-out overflow-hidden ${
+                className={`w-[82vw] max-w-[340px] sm:w-[320px] md:w-[340px] flex-shrink-0 flex flex-col h-full max-h-full rounded-2xl border transition-all duration-300 ease-out overflow-hidden ${
                   isDragOver
                     ? "border-2 border-dashed border-primary bg-primary-light/40 shadow-xl ring-4 ring-primary/10 scale-[1.01]"
                     : "border-border bg-surface-muted/50 hover:border-border-focus/40"
                 }`}
               >
                 {/* Column Header (Fixed within Column) */}
-                <div className="shrink-0 flex items-center justify-between border-b border-border bg-surface/90 px-4 py-3 backdrop-blur-xs">
+                <div className="shrink-0 flex items-center justify-between border-b border-border bg-surface/90 px-3.5 sm:px-4 py-2.5 sm:py-3 backdrop-blur-xs">
                   <div className="flex items-center gap-2.5">
                     <ColumnIcon className={`h-4 w-4 ${col.iconColor}`} />
                     <h2 className="text-xs font-bold uppercase tracking-wider text-text-primary">

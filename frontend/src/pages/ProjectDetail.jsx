@@ -261,10 +261,10 @@ const ProjectDetail = () => {
   });
 
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto px-5 py-8 md:px-8 lg:px-10">
+    <div className="flex-1 min-h-0 overflow-y-auto px-3.5 py-4 sm:px-6 sm:py-6 md:px-8 lg:px-10">
 
       {/* Top Navigation Bar */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-4 sm:pb-6">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/projects")}
@@ -314,7 +314,7 @@ const ProjectDetail = () => {
         {/* Left 2 Cols: Main Task Overview & Subtasks */}
         <div className="space-y-6 lg:col-span-2">
           {/* Main Card */}
-          <div className="rounded-2xl border border-border bg-surface p-6 shadow-xs">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6 shadow-xs">
             {/* Badges Row */}
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2">
@@ -383,7 +383,7 @@ const ProjectDetail = () => {
           </div>
 
           {/* Subtasks / Checklist Card */}
-          <div className="rounded-2xl border border-border bg-surface p-6 shadow-xs">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6 shadow-xs">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-text-primary">
@@ -468,7 +468,7 @@ const ProjectDetail = () => {
 
         {/* Right Col: All Workspace Tasks List */}
         <div className="space-y-6">
-          <div className="rounded-2xl border border-border bg-surface p-6 shadow-xs">
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6 shadow-xs">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-text-primary">

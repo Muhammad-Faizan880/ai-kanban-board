@@ -29,7 +29,7 @@ const Navbar = ({ onProfileClick, onMobileMenuToggle }) => {
     user?.name?.charAt(0)?.toUpperCase() || "U";
 
   return (
-    <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-border bg-surface/95 px-5 backdrop-blur md:px-8">
+    <header className="sticky top-0 z-30 flex h-16 md:h-20 items-center justify-between border-b border-border bg-surface/95 px-3.5 sm:px-5 md:px-8 backdrop-blur">
 
       {/* ================= LEFT ================= */}
       <div className="flex min-w-0 flex-1 items-center gap-4">
