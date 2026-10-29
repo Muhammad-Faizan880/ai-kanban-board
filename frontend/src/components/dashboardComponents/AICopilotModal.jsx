@@ -91,14 +91,14 @@ export default function AICopilotModal({ isOpen, onClose, tasks = [] }) {
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-base sm:text-lg font-bold text-text-primary">
-                  Gemini AI Sprint Copilot
+                  AI Assistant
                 </h3>
                 <span className="rounded-full bg-primary-light px-2 py-0.5 text-[10px] font-bold text-primary">
-                  Gemini 3.1 Live
+                  Gemini AI
                 </span>
               </div>
               <p className="text-xs text-text-muted">
-                Intelligent project advisor connected directly to your live Kanban tasks
+                Ask questions, get daily progress reports, and organize tasks
               </p>
             </div>
           </div>
@@ -226,7 +226,7 @@ export default function AICopilotModal({ isOpen, onClose, tasks = [] }) {
               type="text"
               value={customPrompt}
               onChange={(e) => setCustomPrompt(e.target.value)}
-              placeholder="Ask Copilot (e.g. 'Suggest 3 test cases for auth' or 'How to speed up delivery?')..."
+              placeholder="Ask AI anything (e.g. 'How to start this project?' or 'Suggest test cases')..."
               className="w-full rounded-2xl border border-border bg-surface-muted py-2.5 pl-4 pr-10 text-xs sm:text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:bg-surface focus:outline-none transition"
             />
           </div>
@@ -235,7 +235,7 @@ export default function AICopilotModal({ isOpen, onClose, tasks = [] }) {
             type="submit"
             disabled={!customPrompt.trim() || loading}
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-primary text-white shadow-xs transition hover:bg-primary-hover disabled:opacity-50"
-            title="Send query to Gemini Copilot"
+            title="Send to AI Assistant"
           >
             <PaperAirplaneIcon className="h-4 w-4" />
           </button>

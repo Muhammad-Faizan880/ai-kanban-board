@@ -14,8 +14,8 @@ const QuickActions = ({
 }) => {
   const actions = [
     {
-      title: "Gemini AI Copilot",
-      description: "Daily Standup & Sprint Health",
+      title: "Ask AI Assistant",
+      description: "Daily report & smart suggestions",
       icon: SparklesIcon,
       iconBg: "bg-primary-light",
       iconColor: "text-primary",

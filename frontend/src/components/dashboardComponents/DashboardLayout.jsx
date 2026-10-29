@@ -77,15 +77,15 @@ const DashboardLayout = () => {
         <main className="flex-1 min-h-0 overflow-hidden flex flex-col relative">
           <Outlet />
 
-          {/* Floating Gemini AI Copilot Trigger */}
+          {/* Floating Ask AI Trigger */}
           <button
             type="button"
             onClick={() => setAiCopilotOpen(true)}
             className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-primary to-[#AC4B06] px-4 py-3 text-xs sm:text-sm font-bold text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 ring-4 ring-primary/20 group"
-            title="Open Gemini AI Sprint Copilot"
+            title="Ask AI Assistant"
           >
             <SparklesIcon className="h-5 w-5 text-amber-300 group-hover:rotate-12 transition-transform" />
-            <span className="tracking-wide">AI Copilot</span>
+            <span className="tracking-wide">Ask AI</span>
           </button>
         </main>
       </div>
