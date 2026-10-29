@@ -82,6 +82,8 @@ const RecentTasks = ({ tasks = [], onViewAll }) => {
             return (
               <div
                 key={task._id || task.id}
+                role="button"
+                tabIndex={0}
                 onClick={() => navigate(`/projects/${task._id || task.id}`)}
                 className="flex cursor-pointer flex-col gap-3 px-4 sm:px-5 py-3 sm:py-4 transition hover:bg-surface-muted sm:flex-row sm:items-center sm:justify-between group"
               >

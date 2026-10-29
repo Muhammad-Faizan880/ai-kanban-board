@@ -41,6 +41,7 @@ const Navbar = ({ onProfileClick, onMobileMenuToggle, onOpenAiCopilot }) => {
           onClick={onMobileMenuToggle}
           className="lg:hidden -ml-1 p-2 rounded-lg text-text-secondary hover:bg-surface-muted hover:text-text-primary"
           title="Open Navigation Menu"
+          aria-label="Open Navigation Menu"
         >
           <Bars3Icon className="h-6 w-6" />
         </button>
@@ -71,6 +72,7 @@ const Navbar = ({ onProfileClick, onMobileMenuToggle, onOpenAiCopilot }) => {
         <button
           type="button"
           onClick={onProfileClick}
+          aria-label="User Profile Menu"
           className="flex items-center gap-2 rounded-lg p-1.5 transition hover:bg-surface-muted"
         >
 
@@ -101,6 +103,7 @@ const Navbar = ({ onProfileClick, onMobileMenuToggle, onOpenAiCopilot }) => {
           type="button"
           onClick={handleLogout}
           title="Logout"
+          aria-label="Logout of TaskFlow"
           className="flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition hover:bg-danger-light hover:text-danger"
         >
           <ArrowRightOnRectangleIcon className="h-5 w-5" />

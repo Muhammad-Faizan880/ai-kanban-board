@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://full-stack-ai-kanban-board.vercel.app/sitemap.xml
+

@@ -18,6 +18,7 @@ const DashboardLayout = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
+    if (!aiCopilotOpen) return;
     const loadTasksForCopilot = async () => {
       try {
         const res = await fetchTasks();
