@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
   <defs>
-    <!-- Background Gradient -->
+    <!-- Background Gradient (Terracotta to Deep Amber Rust) -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FF8A3D"/>
       <stop offset="45%" stop-color="#DA721E"/>
@@ -9,15 +9,15 @@
 
     <!-- Gloss Highlight -->
     <linearGradient id="glossGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35"/>
-      <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.38"/>
+      <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.10"/>
       <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
     </linearGradient>
 
     <!-- Accent Card Gradient -->
     <linearGradient id="cardGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#FFF2E8"/>
+      <stop offset="100%" stop-color="#FFF4EC"/>
     </linearGradient>
 
     <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -25,11 +25,11 @@
       <stop offset="100%" stop-color="#FFDEC9"/>
     </linearGradient>
 
-    <!-- AI Sparkle Purple Gradient -->
-    <linearGradient id="aiPurple" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#C084FC"/>
-      <stop offset="50%" stop-color="#9333EA"/>
-      <stop offset="100%" stop-color="#6B21A8"/>
+    <!-- AI Warm Golden Sparkle Gradient (No Purple) -->
+    <linearGradient id="aiGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB"/>
+      <stop offset="35%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#D97706"/>
     </linearGradient>
 
     <!-- Soft Drop Shadows -->
@@ -95,9 +95,9 @@
 
     <!-- Center 'T' Top Bar / Kanban Header Board -->
     <rect x="110" y="135" width="292" height="68" rx="20" fill="url(#cardGrad1)"/>
-    <!-- Subtle top bar accent strip -->
+    <!-- Subtle top bar accent strips (Warm Terracotta / Gold only) -->
     <rect x="124" y="147" width="40" height="10" rx="5" fill="#DA721E" opacity="0.35"/>
-    <rect x="172" y="147" width="24" height="10" rx="5" fill="#C084FC" opacity="0.4"/>
+    <rect x="172" y="147" width="24" height="10" rx="5" fill="#F59E0B" opacity="0.45"/>
 
     <!-- Center 'T' Vertical Pillar / Primary Kanban Column -->
     <rect x="218" y="180" width="76" height="195" rx="20" fill="url(#cardGrad1)"/>
@@ -125,15 +125,15 @@
     </g>
   </g>
 
-  <!-- ================= AI SPARKLE / GEMINI STAR ================= -->
+  <!-- ================= AI SPARKLE / GEMINI STAR (WARM GOLD/WHITE, NO PURPLE) ================= -->
   <!-- Floating Top-Right AI Sparkle -->
   <g transform="translate(372, 102)" filter="url(#aiGlow)">
     <!-- Pulsing Outer Diamond Glow -->
-    <path d="M 0 -34 Q 0 0 34 0 Q 0 0 0 34 Q 0 0 -34 0 Q 0 0 0 -34 Z" fill="url(#aiPurple)" opacity="0.95"/>
+    <path d="M 0 -34 Q 0 0 34 0 Q 0 0 0 34 Q 0 0 -34 0 Q 0 0 0 -34 Z" fill="url(#aiGold)" opacity="0.95"/>
     <!-- Inner Spark Core -->
     <path d="M 0 -18 Q 0 0 18 0 Q 0 0 0 18 Q 0 0 -18 0 Q 0 0 0 -18 Z" fill="#FFFFFF"/>
     <!-- Center Bright Dot -->
-    <circle cx="0" cy="0" r="3" fill="#FFF5EE"/>
+    <circle cx="0" cy="0" r="3" fill="#FFFBEB"/>
   </g>
 
   <!-- Small Secondary AI Sparkle -->
