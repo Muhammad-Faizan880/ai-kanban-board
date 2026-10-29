@@ -158,10 +158,7 @@ export default function AICopilotModal({ isOpen, onClose, tasks = [] }) {
         <div className="flex-1 min-h-[220px] max-h-[50vh] overflow-y-auto p-5 text-sm leading-relaxed text-text-primary">
           {loading ? (
             <div className="flex flex-col items-center justify-center h-full min-h-[200px] gap-3 text-text-muted">
-              <div className="relative">
-                <ArrowPathIcon className="h-8 w-8 animate-spin text-primary" />
-                <SparklesIcon className="absolute -top-1 -right-1 h-4 w-4 text-amber-500 animate-pulse" />
-              </div>
+              <ArrowPathIcon className="h-8 w-8 animate-spin text-primary" />
               <p className="text-xs font-semibold text-text-primary">
                 Gemini 3.1 Flash is analyzing your Kanban board...
               </p>
