@@ -83,21 +83,15 @@ const Benefits = () => {
                     transitionDelay: `${index * 80}ms`,
                   }}
                 >
-                  <span
-                    className="
-                      w-6 h-6
-                      rounded-full
-                      bg-primary-light
-                      text-primary
-                      flex items-center justify-center
-                      flex-shrink-0
-                      group-hover:bg-primary
-                      group-hover:text-text-inverse
-                      transition-all duration-200
-                    "
-                  >
+                  <span className="relative flex h-7 w-6 items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-110 ">
+                    <span
+                      className="absolute inset-0 bg-gradient-to-b from-[var(--color-primary)] via-[var(--color-primary)] to-[var(--color-primary-hover)]"
+                      style={{
+                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                      }}
+                    />
                     <svg
-                      className="w-3.5 h-3.5"
+                      className="relative z-10 w-3.5 h-3.5 text-white"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

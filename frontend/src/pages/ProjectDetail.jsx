@@ -42,22 +42,37 @@ const ProjectDetail = () => {
 
   const [currentTask, setCurrentTask] = useState(null);
   const [allTasks, setAllTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [newSubtaskTitle, setNewSubtaskTitle] = useState("");
   const { showSuccess, showError } = useSnackbar();
   const [taskFilter, setTaskFilter] = useState("ALL");
 
   const showToast = (msg) => showSuccess(msg);
-// Load single task and all workspace tasks
+
+  // Load single task and workspace tasks with smooth instant switching
   useEffect(() => {
+    if (!id) return;
+
+    // 1. Instant optimistic switch if task already exists in allTasks cache (0ms, 0 glitch)
+    const cachedTask = allTasks.find((t) => t._id === id);
+    if (cachedTask) {
+      setCurrentTask(cachedTask);
+    }
+
     const loadDetails = async () => {
-      setLoading(true);
+      // Only show full-screen loader on initial mount if no task data exists yet
+      if (!cachedTask && !currentTask) {
+        setInitialLoading(true);
+      }
+
       try {
-        const [taskRes, allRes] = await Promise.all([
-          fetchTaskById(id),
-          fetchTasks(),
-        ]);
+        const promises = [fetchTaskById(id)];
+        if (allTasks.length === 0) {
+          promises.push(fetchTasks());
+        }
+
+        const [taskRes, allRes] = await Promise.all(promises);
 
         if (taskRes?.task) {
           setCurrentTask(taskRes.task);
@@ -67,18 +82,18 @@ const ProjectDetail = () => {
         }
       } catch (err) {
         console.error("Failed to load task details:", err);
-        showToast("Error loading task details");
+        if (!cachedTask && !currentTask) {
+          showToast("Error loading task details");
+        }
       } finally {
-        setLoading(false);
+        setInitialLoading(false);
       }
     };
 
-    if (id) {
-      loadDetails();
-    }
+    loadDetails();
   }, [id]);
 
-  if (loading) {
+  if (initialLoading && !currentTask) {
     return (
       <div className="flex h-full flex-1 items-center justify-center">
         <div className="flex flex-col items-center gap-3 text-text-muted">
@@ -505,7 +520,12 @@ const ProjectDetail = () => {
                 return (
                   <div
                     key={t._id}
-                    onClick={() => navigate(`/projects/${t._id}`)}
+                    onClick={() => {
+                      if (t._id !== currentTask?._id) {
+                        setCurrentTask(t);
+                        navigate(`/projects/${t._id}`);
+                      }
+                    }}
                     className={`cursor-pointer rounded-xl border p-3.5 transition ${
                       isCurrent
                         ? "border-primary bg-primary-light/40 shadow-xs"
