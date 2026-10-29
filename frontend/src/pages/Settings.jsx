@@ -263,34 +263,42 @@ const handleUpdateProfile = async (e) => {
 
             <div className="mt-4 flex items-center gap-3">
               <img
+                src="/vercel-avatar-256.png"
+                alt="TaskFlow Vercel Avatar"
+                className="h-16 w-16 rounded-full shadow-md border-2 border-primary/40 object-cover"
+                title="Vercel Circle Avatar"
+              />
+              <img
                 src="/taskflow-avatar.svg"
                 alt="TaskFlow Avatar"
                 className="h-16 w-16 rounded-2xl shadow-md border border-border"
+                title="Vector Squircle"
               />
               <img
-                src="/taskflow-avatar-3d.jpg"
+                src="/taskflow-3d-vercel-256.png"
                 alt="TaskFlow 3D Avatar"
                 className="h-16 w-16 rounded-2xl shadow-md object-cover border border-border"
+                title="3D Mini"
               />
             </div>
 
             <div className="mt-4 flex flex-col gap-2">
               <a
-                href="/taskflow-avatar.svg"
-                download="taskflow-avatar.svg"
+                href="/vercel-avatar-256.png"
+                download="vercel-avatar-256x256.png"
                 className="flex items-center justify-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-xs font-semibold text-text-inverse shadow-xs transition hover:bg-primary-hover"
               >
                 <ArrowDownTrayIcon className="h-4 w-4" />
-                <span>Download Vector (SVG)</span>
+                <span>Download Vercel Avatar (256×256, 9 KB)</span>
               </a>
 
               <a
-                href="/taskflow-avatar-3d.jpg"
-                download="taskflow-avatar-3d.jpg"
+                href="/taskflow-avatar.svg"
+                download="taskflow-avatar.svg"
                 className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-text-primary shadow-xs transition hover:bg-surface-muted hover:border-primary"
               >
                 <ArrowDownTrayIcon className="h-4 w-4 text-primary" />
-                <span>Download 3D Render (JPG)</span>
+                <span>Download Vector (SVG)</span>
               </a>
 
               <a
