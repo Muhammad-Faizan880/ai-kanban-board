@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow Brand Assets & Avatar Logos</title>
+  <link rel="icon" type="image/svg+xml" href="/taskflow-avatar.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#DA721E',
+            'primary-hover': '#C05E11',
+            'primary-light': '#FFF0E5',
+            surface: '#FFFFFF',
+            background: '#F9FAFB',
+            border: '#E5E7EB',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-gray-900 min-h-screen py-10 px-4 sm:px-6">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-light text-primary text-xs font-bold mb-3">
+        TaskFlow Official Brand Kit
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900">
+        Download TaskFlow Avatar Logos
+      </h1>
+      <p class="mt-2 text-sm sm:text-base text-gray-600 max-w-lg mx-auto">
+        High-resolution 3D renders and scalable vector logos crafted for apps, avatars, GitHub, and social media.
+      </p>
+    </div>
+
+    <!-- Grid of Logos -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      <!-- 1. 3D Premium Avatar Render -->
+      <div class="bg-surface rounded-3xl p-6 sm:p-8 border border-border shadow-sm flex flex-col items-center text-center">
+        <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden shadow-2xl mb-6 border border-gray-100 bg-gray-900 flex items-center justify-center">
+          <img src="/taskflow-avatar-3d.jpg" alt="TaskFlow 3D Avatar" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+        </div>
+        <h2 class="text-xl font-bold text-gray-900">3D Render Avatar Logo</h2>
+        <p class="text-xs text-gray-500 mt-1 mb-6">
+          Photorealistic metallic terracotta 3D squircle with frosted glass cards and glowing purple AI star.
+        </p>
+        <div class="mt-auto w-full flex flex-col gap-2.5">
+          <a href="/taskflow-avatar-3d.jpg" download="TaskFlow-3D-Avatar-Logo.jpg" class="w-full py-3 px-4 rounded-xl bg-primary hover:bg-primary-hover text-white text-sm font-semibold transition shadow-sm hover:shadow flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Download High-Res 3D Logo (JPG)
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. Clean Vector Flat/Glass Logo (SVG & PNG) -->
+      <div class="bg-surface rounded-3xl p-6 sm:p-8 border border-border shadow-sm flex flex-col items-center text-center">
+        <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden shadow-2xl mb-6 border border-gray-100 bg-gradient-to-br from-[#FF8A3D] to-[#AC4B06] flex items-center justify-center p-2">
+          <img id="svgPreview" src="/taskflow-avatar.svg" alt="TaskFlow Vector Avatar" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+        </div>
+        <h2 class="text-xl font-bold text-gray-900">Modern Vector Squircle Logo</h2>
+        <p class="text-xs text-gray-500 mt-1 mb-6">
+          Scalable vector graphic (SVG) with sharp gradients, Kanban checklist details, and AI sparkle.
+        </p>
+        <div class="mt-auto w-full flex flex-col gap-2.5">
+          <a href="/taskflow-avatar.svg" download="TaskFlow-Avatar-Logo.svg" class="w-full py-3 px-4 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-sm font-semibold transition shadow-sm hover:shadow flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Download Scalable Vector (SVG)
+          </a>
+          <button onclick="downloadAsPng(1024)" class="w-full py-2.5 px-4 rounded-xl border border-border hover:border-primary text-gray-700 hover:text-primary text-xs font-semibold transition bg-surface flex items-center justify-center gap-2">
+            Download 1024×1024 Ultra PNG
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to App Link -->
+    <div class="text-center">
+      <a href="/dashboard" class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover">
+        ← Back to TaskFlow Dashboard
+      </a>
+    </div>
+  </div>
+
+  <canvas id="exportCanvas" style="display: none;"></canvas>
+
+  <script>
+    function downloadAsPng(size) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.getElementById('exportCanvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, size, size);
+        ctx.drawImage(img, 0, 0, size, size);
+        
+        const a = document.createElement('a');
+        a.download = `TaskFlow-Avatar-${size}x${size}.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      };
+      img.src = '/taskflow-avatar.svg';
+    }
+  </script>
+</body>
+</html>

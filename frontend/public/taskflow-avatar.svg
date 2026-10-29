@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A3D"/>
+      <stop offset="45%" stop-color="#DA721E"/>
+      <stop offset="100%" stop-color="#AC4B06"/>
+    </linearGradient>
+
+    <!-- Gloss Highlight -->
+    <linearGradient id="glossGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Accent Card Gradient -->
+    <linearGradient id="cardGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFF2E8"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF5EE"/>
+      <stop offset="100%" stop-color="#FFDEC9"/>
+    </linearGradient>
+
+    <!-- AI Sparkle Purple Gradient -->
+    <linearGradient id="aiPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C084FC"/>
+      <stop offset="50%" stop-color="#9333EA"/>
+      <stop offset="100%" stop-color="#6B21A8"/>
+    </linearGradient>
+
+    <!-- Soft Drop Shadows -->
+    <filter id="shadowLarge" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#5C2400" flood-opacity="0.35"/>
+    </filter>
+
+    <filter id="shadowMedium" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <filter id="aiGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <clipPath id="squircleClip">
+      <rect x="32" y="32" width="448" height="448" rx="112" ry="112"/>
+    </clipPath>
+  </defs>
+
+  <!-- Outer Ambient Shadow -->
+  <rect x="32" y="44" width="448" height="448" rx="112" ry="112" fill="#000000" opacity="0.2" filter="url(#shadowLarge)"/>
+
+  <!-- Main Avatar Squircle -->
+  <rect x="32" y="32" width="448" height="448" rx="112" ry="112" fill="url(#bgGrad)"/>
+
+  <!-- Inner Stroke / Rim Light -->
+  <rect x="33" y="33" width="446" height="446" rx="111" ry="111" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-opacity="0.45"/>
+
+  <!-- Top Gloss Arc -->
+  <g clip-path="url(#squircleClip)">
+    <ellipse cx="256" cy="70" rx="300" ry="160" fill="url(#glossGrad)"/>
+    
+    <!-- Subtle Grid Pattern in background (Kanban aesthetic) -->
+    <g opacity="0.08" stroke="#FFFFFF" stroke-width="1.5">
+      <line x1="96" y1="32" x2="96" y2="480"/>
+      <line x1="176" y1="32" x2="176" y2="480"/>
+      <line x1="256" y1="32" x2="256" y2="480"/>
+      <line x1="336" y1="32" x2="336" y2="480"/>
+      <line x1="416" y1="32" x2="416" y2="480"/>
+      <line x1="32" y1="120" x2="480" y2="120"/>
+      <line x1="32" y1="200" x2="480" y2="200"/>
+      <line x1="32" y1="280" x2="480" y2="280"/>
+      <line x1="32" y1="360" x2="480" y2="360"/>
+    </g>
+  </g>
+
+  <!-- ================= LOGO EMBLEM: 3D KANBAN 'T' ================= -->
+  <g filter="url(#shadowMedium)">
+    <!-- Behind / Offset Kanban Card (Right column) -->
+    <rect x="290" y="210" width="100" height="150" rx="18" fill="url(#cardGrad2)" opacity="0.85">
+      <animate attributeName="opacity" values="0.85;0.95;0.85" dur="3s" repeatCount="indefinite"/>
+    </rect>
+    <!-- Mini progress lines on offset card -->
+    <rect x="310" y="234" width="60" height="8" rx="4" fill="#DA721E" opacity="0.3"/>
+    <rect x="310" y="252" width="40" height="6" rx="3" fill="#DA721E" opacity="0.2"/>
+
+    <!-- Left Kanban Card (In-Progress column) -->
+    <rect x="122" y="230" width="100" height="130" rx="18" fill="url(#cardGrad2)" opacity="0.85"/>
+    <rect x="142" y="254" width="60" height="8" rx="4" fill="#DA721E" opacity="0.3"/>
+    <rect x="142" y="272" width="45" height="6" rx="3" fill="#DA721E" opacity="0.2"/>
+
+    <!-- Center 'T' Top Bar / Kanban Header Board -->
+    <rect x="110" y="135" width="292" height="68" rx="20" fill="url(#cardGrad1)"/>
+    <!-- Subtle top bar accent strip -->
+    <rect x="124" y="147" width="40" height="10" rx="5" fill="#DA721E" opacity="0.35"/>
+    <rect x="172" y="147" width="24" height="10" rx="5" fill="#C084FC" opacity="0.4"/>
+
+    <!-- Center 'T' Vertical Pillar / Primary Kanban Column -->
+    <rect x="218" y="180" width="76" height="195" rx="20" fill="url(#cardGrad1)"/>
+    
+    <!-- Checklist items inside the T vertical stem -->
+    <g transform="translate(233, 230)">
+      <!-- Check Item 1 -->
+      <circle cx="9" cy="9" r="7" fill="#DA721E" opacity="0.25"/>
+      <path d="M6 9 L8.5 11.5 L12.5 6.5" stroke="#DA721E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <rect x="22" y="6" width="18" height="6" rx="3" fill="#DA721E" opacity="0.4"/>
+
+      <!-- Check Item 2 -->
+      <circle cx="9" cy="35" r="7" fill="#DA721E" opacity="0.25"/>
+      <path d="M6 35 L8.5 37.5 L12.5 32.5" stroke="#DA721E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <rect x="22" y="32" width="18" height="6" rx="3" fill="#DA721E" opacity="0.4"/>
+
+      <!-- Check Item 3 -->
+      <circle cx="9" cy="61" r="7" fill="#DA721E" opacity="0.25"/>
+      <path d="M6 61 L8.5 63.5 L12.5 58.5" stroke="#DA721E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <rect x="22" y="58" width="18" height="6" rx="3" fill="#DA721E" opacity="0.4"/>
+      
+      <!-- Progress Bar at Base of T -->
+      <rect x="2" y="96" width="42" height="7" rx="3.5" fill="#FFE2CC"/>
+      <rect x="2" y="96" width="30" height="7" rx="3.5" fill="#DA721E"/>
+    </g>
+  </g>
+
+  <!-- ================= AI SPARKLE / GEMINI STAR ================= -->
+  <!-- Floating Top-Right AI Sparkle -->
+  <g transform="translate(372, 102)" filter="url(#aiGlow)">
+    <!-- Pulsing Outer Diamond Glow -->
+    <path d="M 0 -34 Q 0 0 34 0 Q 0 0 0 34 Q 0 0 -34 0 Q 0 0 0 -34 Z" fill="url(#aiPurple)" opacity="0.95"/>
+    <!-- Inner Spark Core -->
+    <path d="M 0 -18 Q 0 0 18 0 Q 0 0 0 18 Q 0 0 -18 0 Q 0 0 0 -18 Z" fill="#FFFFFF"/>
+    <!-- Center Bright Dot -->
+    <circle cx="0" cy="0" r="3" fill="#FFF5EE"/>
+  </g>
+
+  <!-- Small Secondary AI Sparkle -->
+  <g transform="translate(120, 205)" opacity="0.8">
+    <path d="M 0 -15 Q 0 0 15 0 Q 0 0 0 15 Q 0 0 -15 0 Q 0 0 0 -15 Z" fill="#FFFFFF"/>
+  </g>
+</svg>

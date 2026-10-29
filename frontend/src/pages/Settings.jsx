@@ -9,6 +9,7 @@ import {
   ArrowRightOnRectangleIcon,
   SparklesIcon,
   CheckIcon,
+  ArrowDownTrayIcon,
 } from "@heroicons/react/24/outline";
 
 import { updateProfile } from "../services/auth";
@@ -247,6 +248,59 @@ const handleUpdateProfile = async (e) => {
                 <span>Contrast Ratio</span>
                 <span className="font-semibold text-success">WCAG 2.1 AA Compliant</span>
               </div>
+            </div>
+          </div>
+
+          {/* Official Avatar Logo & Brand Assets */}
+          <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6 shadow-xs">
+            <div className="flex items-center gap-2.5">
+              <SparklesIcon className="h-5 w-5 text-primary" />
+              <h3 className="text-sm font-bold text-text-primary">TaskFlow Avatar Logo</h3>
+            </div>
+            <p className="mt-2 text-xs text-text-muted">
+              Download high-resolution official avatar logos for social profiles, GitHub, and app icons.
+            </p>
+
+            <div className="mt-4 flex items-center gap-3">
+              <img
+                src="/taskflow-avatar.svg"
+                alt="TaskFlow Avatar"
+                className="h-16 w-16 rounded-2xl shadow-md border border-border"
+              />
+              <img
+                src="/taskflow-avatar-3d.jpg"
+                alt="TaskFlow 3D Avatar"
+                className="h-16 w-16 rounded-2xl shadow-md object-cover border border-border"
+              />
+            </div>
+
+            <div className="mt-4 flex flex-col gap-2">
+              <a
+                href="/taskflow-avatar.svg"
+                download="taskflow-avatar.svg"
+                className="flex items-center justify-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-xs font-semibold text-text-inverse shadow-xs transition hover:bg-primary-hover"
+              >
+                <ArrowDownTrayIcon className="h-4 w-4" />
+                <span>Download Vector (SVG)</span>
+              </a>
+
+              <a
+                href="/taskflow-avatar-3d.jpg"
+                download="taskflow-avatar-3d.jpg"
+                className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-text-primary shadow-xs transition hover:bg-surface-muted hover:border-primary"
+              >
+                <ArrowDownTrayIcon className="h-4 w-4 text-primary" />
+                <span>Download 3D Render (JPG)</span>
+              </a>
+
+              <a
+                href="/download-logo.html"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-1 text-center text-[11px] font-medium text-primary hover:underline"
+              >
+                Open Full Brand Kit & PNG Exporter →
+              </a>
             </div>
           </div>
 
