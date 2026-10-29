@@ -21,6 +21,7 @@ import {
   updateTaskApi,
   updateTaskStatusApi,
   deleteTaskApi,
+  generateAISubtasksApi,
 } from "../services/tasks";
 
 const priorityBadges = {
@@ -206,6 +207,31 @@ const ProjectDetail = () => {
     }
   };
 
+  // 3.5 Auto-Generate Subtasks with Gemini AI
+  const [generatingAiSubtasks, setGeneratingAiSubtasks] = useState(false);
+  const handleGenerateAiSubtasks = async () => {
+    if (!currentTask?.title) return;
+    try {
+      setGeneratingAiSubtasks(true);
+      const res = await generateAISubtasksApi(currentTask.title, currentTask.description);
+      if (res?.subtasks && res.subtasks.length > 0) {
+        const updatedSubtasks = [...subtasks, ...res.subtasks];
+        const updatedTask = { ...currentTask, subtasks: updatedSubtasks, aiGenerated: true };
+        setCurrentTask(updatedTask);
+        setAllTasks((prev) =>
+          prev.map((t) => (t._id === currentTask._id ? updatedTask : t))
+        );
+        await updateTaskApi(currentTask._id, { subtasks: updatedSubtasks, aiGenerated: true });
+        showSuccess(`Gemini AI generated ${res.subtasks.length} subtasks!`);
+      }
+    } catch (err) {
+      console.error("AI subtask generation failed:", err);
+      showError("Failed to generate AI subtasks");
+    } finally {
+      setGeneratingAiSubtasks(false);
+    }
+  };
+
   // 4. Change Status
   const handleStatusChange = async (newStatus) => {
     const updatedTask = { ...currentTask, status: newStatus };
@@ -384,7 +410,7 @@ const ProjectDetail = () => {
 
           {/* Subtasks / Checklist Card */}
           <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6 shadow-xs">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h3 className="text-base font-bold text-text-primary">
                   Subtask Checklist ({completedSubtasks} of {subtasks.length} Completed)
@@ -393,7 +419,19 @@ const ProjectDetail = () => {
                   Check off items as you make progress. Updates automatically in Kanban.
                 </p>
               </div>
-              <span className="text-base font-bold text-primary">{progress}%</span>
+              <div className="flex items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={handleGenerateAiSubtasks}
+                  disabled={generatingAiSubtasks}
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-primary to-primary-hover px-3 py-1.5 text-xs font-semibold text-text-inverse shadow-xs transition hover:shadow-md hover:-translate-y-0.5 disabled:opacity-50"
+                  title="Use Gemini AI to analyze task and generate checklist steps"
+                >
+                  <SparklesIcon className={`h-3.5 w-3.5 ${generatingAiSubtasks ? "animate-spin" : ""}`} />
+                  <span>{generatingAiSubtasks ? "Gemini Generating..." : "AI Auto-Subtasks"}</span>
+                </button>
+                <span className="text-base font-bold text-primary">{progress}%</span>
+              </div>
             </div>
 
             {/* Progress Bar */}

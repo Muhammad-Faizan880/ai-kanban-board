@@ -7,6 +7,8 @@ import {
   updateTaskStatus,
   deleteTask,
   generateAITaskBreakdown,
+  generateAISubtasks,
+  aiSprintCopilot,
 } from "../controllers/task.controller.js";
 import { protect } from "../middleware/protect.middleware.js";
 
@@ -19,6 +21,8 @@ router.get("/", getTasks);
 router.get("/:id", getTaskById);
 router.post("/", createTask);
 router.post("/ai-breakdown", generateAITaskBreakdown);
+router.post("/ai-subtasks", generateAISubtasks);
+router.post("/ai-copilot", aiSprintCopilot);
 router.put("/:id", updateTask);
 router.put("/:id/status", updateTaskStatus);
 router.delete("/:id", deleteTask);

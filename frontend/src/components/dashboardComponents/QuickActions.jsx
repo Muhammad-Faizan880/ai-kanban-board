@@ -3,14 +3,24 @@ import {
   PlusIcon,
   ClipboardDocumentCheckIcon,
   FolderPlusIcon,
+  SparklesIcon,
 } from "@heroicons/react/24/outline";
 
 const QuickActions = ({
   onCreateTask,
   onViewTasks,
   onCreateProject,
+  onOpenAiCopilot,
 }) => {
   const actions = [
+    {
+      title: "Gemini AI Copilot",
+      description: "Daily Standup & Sprint Health",
+      icon: SparklesIcon,
+      iconBg: "bg-primary-light",
+      iconColor: "text-primary",
+      onClick: onOpenAiCopilot,
+    },
     {
       title: "Create new task",
       description: "Add something to your list",

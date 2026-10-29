@@ -13,6 +13,7 @@ import DashboardHeader from "../components/dashboardComponents/DashboardHeader";
 import StatsCards from "../components/dashboardComponents/StatsCards";
 import RecentTasks from "../components/dashboardComponents/RecentTasks";
 import QuickActions from "../components/dashboardComponents/QuickActions";
+import AICopilotModal from "../components/dashboardComponents/AICopilotModal";
 import { fetchTasks, createTaskApi } from "../services/tasks";
 import { useSnackbar } from "../context/SnackbarContext.jsx";
 
@@ -21,6 +22,7 @@ const Dashboard = () => {
   const { showSuccess, showError } = useSnackbar();
 
   const [tasks, setTasks] = useState([]);
+  const [isCopilotOpen, setIsCopilotOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [creating, setCreating] = useState(false);
   const [newTask, setNewTask] = useState({
@@ -147,6 +149,7 @@ const Dashboard = () => {
           onViewTasks={handleGoToTasks}
           onCreateTask={() => setIsCreateModalOpen(true)}
           onCreateProject={handleGoToProjects}
+          onOpenAiCopilot={() => setIsCopilotOpen(true)}
         />
       </div>
 
@@ -280,6 +283,13 @@ const Dashboard = () => {
           </div>
         </div>
       )}
+
+      {/* Gemini AI Sprint Copilot Modal */}
+      <AICopilotModal
+        isOpen={isCopilotOpen}
+        onClose={() => setIsCopilotOpen(false)}
+        tasks={tasks}
+      />
     </div>
   );
 };

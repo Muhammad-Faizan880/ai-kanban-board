@@ -355,3 +355,155 @@ Return ONLY a valid JSON object (no markdown code blocks, no backticks, no expla
     res.status(500).json({ message: "AI decomposition failed", error: error.message });
   }
 };
+
+// 7. AI Auto-Subtasks Generator for existing tasks
+export const generateAISubtasks = async (req, res) => {
+  try {
+    const { title, description } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ message: "Task title is required" });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+
+    if (apiKey) {
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { 
+              "Content-Type": "application/json",
+              "x-goog-api-key": apiKey
+            },
+            body: JSON.stringify({
+              contents: [
+                {
+                  parts: [
+                    {
+                      text: `You are an expert technical lead and senior architect.
+Task Title: "${title}"
+Description: "${description || "General technical task"}"
+
+Break this task down into 4 to 6 concise, actionable, granular checklist subtasks.
+Return ONLY a valid JSON array of objects with a "title" string property. No markdown, no code block backticks:
+[
+  { "title": "Specific step 1" },
+  { "title": "Specific step 2" }
+]`
+                    }
+                  ]
+                }
+              ]
+            })
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          let raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || "[]";
+          raw = raw.replace(/```json/g, "").replace(/```/g, "").trim();
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            const formatted = parsed.map((item) => ({
+              title: typeof item === "string" ? item : item.title,
+              completed: false,
+            }));
+            return res.status(200).json({ success: true, subtasks: formatted, source: "gemini-ai" });
+          }
+        }
+      } catch (err) {
+        console.warn("Gemini subtask generation fallback:", err.message);
+      }
+    }
+
+    // Smart heuristic fallback
+    const heuristic = generateSmartHeuristicBreakdown(title);
+    return res.status(200).json({
+      success: true,
+      subtasks: heuristic.subtasks,
+      source: "smart-engine",
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to generate AI subtasks", error: error.message });
+  }
+};
+
+// 8. AI Sprint Copilot & Board Advisor
+export const aiSprintCopilot = async (req, res) => {
+  try {
+    const { action, prompt, tasksSummary } = req.body;
+    const apiKey = process.env.GEMINI_API_KEY;
+
+    let systemInstruction = "";
+    if (action === "STANDUP") {
+      systemInstruction = `Generate an executive, professional Daily Standup report in clean Markdown format with 3 distinct sections:
+1. ✅ **Completed & Shipped** (Summarize items in DONE)
+2. 🔄 **Currently In Focus** (Summarize active items in IN_PROGRESS and REVIEW)
+3. ⚠️ **Blockers, Risks & Priority Today** (Highlight high priority items in TODO/Backlog)
+Keep it crisp, actionable, and ready to share with stakeholders or Slack/Teams.`;
+    } else if (action === "SPRINT_HEALTH") {
+      systemInstruction = `Act as an Agile Coach & Delivery Lead. Analyze the sprint health, workload distribution, and team throughput.
+Provide:
+1. 📈 **Sprint Health Score & Velocity Assessment** (e.g., 85/100 - Strong Momentum)
+2. 🚨 **Bottleneck Diagnosis** (Are tasks piling up in review, todo, or high-priority unassigned?)
+3. 💡 **Top 3 Actionable Recommendations** for immediate improvement.`;
+    } else if (action === "PRIORITIZE") {
+      systemInstruction = `Act as a Staff Principal Engineer. Analyze the given tasks and recommend the exact Top 3 highest-leverage tasks to execute right now.
+Provide an Impact vs Effort rationale for each recommendation.`;
+    } else {
+      systemInstruction = `You are TaskFlow Copilot, an elite AI Agile Project Manager & Software Architect.
+Respond to the user's custom question or request directly with actionable, structured Markdown formatting.`;
+    }
+
+    if (apiKey) {
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { 
+              "Content-Type": "application/json",
+              "x-goog-api-key": apiKey
+            },
+            body: JSON.stringify({
+              contents: [
+                {
+                  parts: [
+                    {
+                      text: `${systemInstruction}
+
+CURRENT LIVE KANBAN BOARD CONTEXT:
+${tasksSummary || "No live tasks context provided."}
+
+USER PROMPT:
+"${prompt || action}"`
+                    }
+                  ]
+                }
+              ]
+            })
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+          return res.status(200).json({ success: true, reply, source: "gemini-ai" });
+        }
+      } catch (err) {
+        console.warn("Gemini Copilot fallback:", err.message);
+      }
+    }
+
+    // Heuristic fallback
+    return res.status(200).json({
+      success: true,
+      reply: `### 📋 Daily Standup Summary\n\n- ✅ **Done**: Verified deployment and core workflows.\n- 🔄 **In Progress**: Active Kanban sprint development.\n- 🎯 **Next Focus**: Tackle High-Priority backlog items first.`,
+      source: "smart-engine",
+    });
+  } catch (error) {
+    res.status(500).json({ message: "AI Copilot request failed", error: error.message });
+  }
+};

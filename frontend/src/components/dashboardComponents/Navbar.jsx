@@ -8,11 +8,12 @@ import {
   ChevronDownIcon,
   ArrowRightOnRectangleIcon,
   Bars3Icon,
+  SparklesIcon,
 } from "@heroicons/react/24/outline";
 
 import { logout } from "../../redux/slices/authSlice";
 
-const Navbar = ({ onProfileClick, onMobileMenuToggle }) => {
+const Navbar = ({ onProfileClick, onMobileMenuToggle, onOpenAiCopilot }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -63,6 +64,17 @@ const Navbar = ({ onProfileClick, onMobileMenuToggle }) => {
 
       {/* ================= RIGHT ================= */}
       <div className="flex items-center gap-2 sm:gap-3">
+
+        {/* Gemini AI Copilot Quick Button */}
+        <button
+          type="button"
+          onClick={onOpenAiCopilot}
+          className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-primary to-[#AC4B06] px-3 py-1.5 text-xs font-bold text-white shadow-xs transition hover:shadow-md hover:-translate-y-0.5 active:scale-95"
+          title="Open Gemini AI Sprint Copilot"
+        >
+          <SparklesIcon className="h-4 w-4" />
+          <span className="hidden sm:inline">AI Copilot</span>
+        </button>
 
         {/* Profile */}
         <button

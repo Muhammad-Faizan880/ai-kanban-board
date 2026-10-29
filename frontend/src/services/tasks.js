@@ -42,3 +42,15 @@ export const generateAITaskBreakdownApi = async (prompt) => {
   return response.data;
 };
 
+// AI Auto-Subtasks for existing task
+export const generateAISubtasksApi = async (title, description) => {
+  const response = await api.post("/tasks/ai-subtasks", { title, description });
+  return response.data;
+};
+
+// AI Sprint Copilot & Board Advisor
+export const aiSprintCopilotApi = async ({ action, prompt, tasksSummary }) => {
+  const response = await api.post("/tasks/ai-copilot", { action, prompt, tasksSummary });
+  return response.data;
+};
+

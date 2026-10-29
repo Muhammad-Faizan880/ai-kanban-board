@@ -1,16 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { SparklesIcon } from "@heroicons/react/24/outline";
 
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import ProfileDrawer from "../ProfileDrawer";
+import AICopilotModal from "./AICopilotModal";
+import { fetchTasks } from "../../services/tasks";
 
 const DashboardLayout = () => {
   const { user } = useSelector((state) => state.auth);
 
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [aiCopilotOpen, setAiCopilotOpen] = useState(false);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const loadTasksForCopilot = async () => {
+      try {
+        const res = await fetchTasks();
+        if (res?.tasks) {
+          setTasks(res.tasks);
+        }
+      } catch (err) {
+        console.error("DashboardLayout load tasks failed:", err);
+      }
+    };
+    loadTasksForCopilot();
+  }, [aiCopilotOpen]);
 
   return (
     <div className="h-screen w-full max-w-full overflow-hidden bg-background text-text-primary flex">
@@ -51,17 +70,36 @@ const DashboardLayout = () => {
           user={user}
           onProfileClick={() => setProfileOpen(true)}
           onMobileMenuToggle={() => setMobileMenuOpen(true)}
+          onOpenAiCopilot={() => setAiCopilotOpen(true)}
         />
 
         {/* Dynamic Page Container */}
-        <main className="flex-1 min-h-0 overflow-hidden flex flex-col">
+        <main className="flex-1 min-h-0 overflow-hidden flex flex-col relative">
           <Outlet />
+
+          {/* Floating Gemini AI Copilot Trigger */}
+          <button
+            type="button"
+            onClick={() => setAiCopilotOpen(true)}
+            className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-primary to-[#AC4B06] px-4 py-3 text-xs sm:text-sm font-bold text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 ring-4 ring-primary/20 group"
+            title="Open Gemini AI Sprint Copilot"
+          >
+            <SparklesIcon className="h-5 w-5 text-amber-300 group-hover:rotate-12 transition-transform" />
+            <span className="tracking-wide">AI Copilot</span>
+          </button>
         </main>
       </div>
 
       <ProfileDrawer
         isOpen={profileOpen}
         onClose={() => setProfileOpen(false)}
+      />
+
+      {/* Global Gemini AI Sprint Copilot Modal */}
+      <AICopilotModal
+        isOpen={aiCopilotOpen}
+        onClose={() => setAiCopilotOpen(false)}
+        tasks={tasks}
       />
     </div>
   );
