@@ -244,3 +244,4 @@ export default function AICopilotModal({ isOpen, onClose, tasks = [] }) {
     </div>
   );
 }
+
